@@ -1,26 +1,44 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import {BrowserRouter as Router, Link, Route, Switch} from "react-router-dom";
+import {Breadcrumb} from 'antd';
+import ArticleForm from "./components/ArticleForm";
+import ViewAllArticles from "./view/ViewAllArticles";
+import ViewArticleDetail from "./view/ViewArticleDetail";
+// import './App.scss';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+const App = () => {
+    return (
+        <Router>
+            <div>
+                <Breadcrumb>
+                    <Breadcrumb.Item><Link to="/">Home</Link></Breadcrumb.Item>
+                    <Breadcrumb.Item><Link to="/articles">所有文章</Link></Breadcrumb.Item>
+                    <Breadcrumb.Item><Link to="/create">写文章</Link></Breadcrumb.Item>
+                </Breadcrumb>
+                <Switch>
+                    <Route path="/article/edit/:id">
+                        <ArticleForm/>
+                    </Route>
+                    <Route path="/article/:id">
+                        <ViewArticleDetail/>
+                    </Route>
+                    <Route path="/articles">
+                        <ViewAllArticles/>
+                    </Route>
+                    <Route path="/create">
+                        <ArticleForm/>
+                    </Route>
+                    <Route path="/">
+                        <Home/>
+                    </Route>
+                </Switch>
+            </div>
+        </Router>
+    );
+}
+
+function Home() {
+    return <h2>Home</h2>;
 }
 
 export default App;
