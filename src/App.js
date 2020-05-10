@@ -4,17 +4,23 @@ import {Breadcrumb} from 'antd';
 import ArticleForm from "./components/ArticleForm";
 import ViewAllArticles from "./view/ViewAllArticles";
 import ViewArticleDetail from "./view/ViewArticleDetail";
-// import './App.scss';
+import './App.scss';
+import './locales/i18n'
+import {useTranslation} from 'react-i18next'
+import HomePage from "./view/HomePage";
 
 const App = () => {
+    const {t} = useTranslation();
     return (
         <Router>
-            <div>
+            <div className={'App-header'}>
                 <Breadcrumb>
-                    <Breadcrumb.Item><Link to="/">Home</Link></Breadcrumb.Item>
-                    <Breadcrumb.Item><Link to="/articles">所有文章</Link></Breadcrumb.Item>
-                    <Breadcrumb.Item><Link to="/create">写文章</Link></Breadcrumb.Item>
+                    <Breadcrumb.Item><Link to="/">{t('home')}</Link></Breadcrumb.Item>
+                    <Breadcrumb.Item><Link to="/articles">{t('all_article')}</Link></Breadcrumb.Item>
+                    <Breadcrumb.Item><Link to="/create">{t('create_article')}</Link></Breadcrumb.Item>
                 </Breadcrumb>
+            </div>
+            <div className={'App-content'}>
                 <Switch>
                     <Route path="/article/edit/:id">
                         <ArticleForm/>
@@ -29,16 +35,12 @@ const App = () => {
                         <ArticleForm/>
                     </Route>
                     <Route path="/">
-                        <Home/>
+                        <HomePage/>
                     </Route>
                 </Switch>
             </div>
         </Router>
     );
-}
-
-function Home() {
-    return <h2>Home</h2>;
 }
 
 export default App;
